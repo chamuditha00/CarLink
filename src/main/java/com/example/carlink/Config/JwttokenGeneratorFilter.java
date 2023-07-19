@@ -1,6 +1,7 @@
 package com.example.carlink.Config;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,22 +19,26 @@ import java.util.Set;
 
 public class JwttokenGeneratorFilter extends OncePerRequestFilter {
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        Authentication authentication = SecurityContext.getContext().getAuthentication(request);
+        Authentication authentication = SecurityContext.getContext();
         if (authentication != null) {
-            SecretKey key = Jwts.secretKeyFor(SecurityContext.JWT_KEY.getBytes());
+            SecretKey key = Keys.hmacShaKeyFor(SecurityContext.JWT_KEY.getBytes());
             String jwt = Jwts.builder().setIssuer("carlink")
                     .setIssuedAt(new Date())
                     .claim("authorities", populateAuthorities(authentication.getAuthorities()))
                     .claim("username", authentication.getName())
                     .setExpiration(new Date(new Date().getTime() + 1000 * 60 * 60 * 10))
-                    .signWith(key).compact();
+                    .signWith(null,key).compact();
+
+            response.setHeader(SecurityContext.HEADER,jwt);
+
+
 
 
         }
+        filterChain.doFilter(request, response);
 
     }
 
@@ -44,4 +49,9 @@ public class JwttokenGeneratorFilter extends OncePerRequestFilter {
         }
         return String.join(",", authorities);
     }
+
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return !request.getServletPath().equals("/signin");
+    }
+
 }

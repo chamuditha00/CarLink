@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/profile")
-public class ProfileControllar {
+public class ProfileController {
 
 
     @Autowired

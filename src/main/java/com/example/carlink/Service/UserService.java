@@ -5,6 +5,7 @@ import com.example.carlink.Entity.Profile;
 import com.example.carlink.Exceptions.UserException;
 import com.example.carlink.Repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private ProfileRepository profileRepository;
 
@@ -30,7 +33,7 @@ public class UserService {
         }
         Profile newProfle = new Profile();
         newProfle.setEmail(user.getEmail());
-        newProfle.setPassword(user.getPassword());
+        newProfle.setPassword(passwordEncoder.encode(user.getPassword()));
         newProfle.setName(user.getName());
         newProfle.setUsername(user.getUsername());
         newProfle.setProfileImageUri(user.getProfileImageUri());

@@ -1,5 +1,6 @@
 package com.example.carlink.Entity;
 
+import org.springframework.security.core.GrantedAuthority;
 import com.example.carlink.Dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -49,6 +50,10 @@ public class Profile {
 
     @ManyToMany
     private List<Post> Savedposts = new ArrayList<Post>();
+
+    public Profile(String email, String password, List<GrantedAuthority> authorities) {
+        // Constructor implementation
+    }
 
 
 
