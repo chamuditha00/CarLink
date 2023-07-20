@@ -31,17 +31,17 @@ public class ProfileController {
         return new ResponseEntity<Profile>(profile, HttpStatus.OK);
     }
 
-    @PostMapping("/follow/{id}")
+    @PutMapping("/follow/{id}")
     public ResponseEntity<MessageResponse> followUserHandler(@PathVariable("id") long id) throws UserException {
        return null;
     }
 
-    @PostMapping("/unfollow/{id}")
+    @PutMapping("/unfollow/{id}")
     public ResponseEntity<MessageResponse> unfollowUserHandler(@PathVariable("id") long id) throws UserException {
         return null;
     }
 
-    @PostMapping("/request")
+    @PutMapping("/request")
     public ResponseEntity<MessageResponse> findUserProfileHandler(@RequestHeader("Authorization") String token) throws UserException {
         // MessageResponse Response = userService.followUser(followUserId, followUserId);
         return null;
