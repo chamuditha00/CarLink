@@ -5,6 +5,7 @@ import com.example.carlink.Repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,7 +27,10 @@ public class UserUserDetailsService implements UserDetailsService {
             Profile profile = user.get();
 
             List<GrantedAuthority> authorities = new ArrayList<>();
-            return (UserDetails) new Profile(profile.getUsername(), profile.getPassword(), authorities);
+            return new User(
+                    profile.getEmail(),
+                    profile.getPassword(),
+                    authorities);
 
         }
         throw new BadCredentialsException("User not found");
