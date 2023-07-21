@@ -26,26 +26,30 @@ public class JwtTokenValidationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwt = request.getHeader(SecurityContext.HEADER);
+        System.out.println(jwt);
         if (jwt != null) {
             try {
                 jwt= jwt.substring(7);
                 SecretKey key = Keys.hmacShaKeyFor(SecurityContext.JWT_KEY.getBytes());
-                Jws<Claims> jwsClaims = Jwts.parser().setSigningKey(key).parseClaimsJws(jwt);
-                Claims claims = jwsClaims.getBody();
+                Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 
                 String username = claims.get("username").toString();
                 String authorities = claims.get("authorities").toString();
                 List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
                 Authentication auth= new UsernamePasswordAuthenticationToken(username,null,auths);
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                System.out.println("JWT is valid");
 
             } catch (Exception e) {
+                System.out.println(e);
                 throw new BadCredentialsException("Invalid token");
             }
         }
         filterChain.doFilter(request, response);
     }
+
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return request.getServletPath().equals("/signin");
     }
+
 }

@@ -31,6 +31,7 @@ public class ProfileController {
         return new ResponseEntity<Profile>(profile, HttpStatus.OK);
     }
 
+
     @PutMapping("/follow/{id}")
     public ResponseEntity<MessageResponse> followUserHandler(@PathVariable("id") long id) throws UserException {
        return null;
