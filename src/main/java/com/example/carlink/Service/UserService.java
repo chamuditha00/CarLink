@@ -4,6 +4,9 @@ import com.example.carlink.Dto.UserDto;
 import com.example.carlink.Entity.Profile;
 import com.example.carlink.Exceptions.UserException;
 import com.example.carlink.Repository.ProfileRepository;
+import com.example.carlink.Security.JwtTokenClaims;
+import com.example.carlink.Security.JwtTokenProvider;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private ProfileRepository profileRepository;
+    private JwtTokenProvider jwtTokenProvider;
 
     public Profile registerUser(Profile user) throws UserException {
         Optional<Profile> isEmailExist = profileRepository.findByEmail(user.getEmail());
@@ -52,7 +56,19 @@ public class UserService {
     }
 
     public Profile findUserProfile(String token) throws UserException {
-        return null;
+
+        token = token.substring(7);
+
+        JwtTokenClaims jwtTokenClaims = jwtTokenProvider.getClaimsFromToken(token);
+
+        String email = jwtTokenClaims.getUsername();
+
+        Optional<Profile> opt = profileRepository.findByEmail(email);
+
+        if(opt.isPresent()){
+            return opt.get();
+        }
+        throw new UserException("invalid token");
     }
 
     public Profile findUserByUsername(String username) throws UserException {

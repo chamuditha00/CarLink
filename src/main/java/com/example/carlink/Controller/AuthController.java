@@ -36,7 +36,7 @@ public class AuthController {
 
         Optional<Profile> opt = ProfileRepository.findByEmail(auth.getName());
         if(opt.isPresent()){
-            Profile profile = opt.get();
+                Profile profile = opt.get();
             return new ResponseEntity<Profile>(opt.get(), HttpStatus.ACCEPTED);
         }
         throw new BadCredentialsException("Invalid username or password");
