@@ -25,6 +25,22 @@ public class GlobleExceptions {
 
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+
+
+    @ExceptionHandler(StoryException.class)
+    public ResponseEntity<ErrorDetails> StoryExceptionHandler(StoryException ex, WebRequest request){
+        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage(), request.getDescription(false), LocalDateTime.now());
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CommentException.class)
+    public ResponseEntity<ErrorDetails> CommentExceptionHandler(CommentException ex, WebRequest request){
+        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage(), request.getDescription(false), LocalDateTime.now());
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDetails> MethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request){
         ErrorDetails errorDetails = new ErrorDetails(ex.getBindingResult().getFieldError().getDefaultMessage(), "Validation Error", LocalDateTime.now());

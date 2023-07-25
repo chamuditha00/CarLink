@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +32,6 @@ public class Comments {
     @ElementCollection
     private Set<UserDto> likedByUsers = new HashSet<UserDto>();
 
-
+    private LocalDateTime createdAt;
 
 }
