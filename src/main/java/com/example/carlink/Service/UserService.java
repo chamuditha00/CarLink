@@ -21,6 +21,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private ProfileRepository profileRepository;
+    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     public Profile registerUser(Profile user) throws UserException {
