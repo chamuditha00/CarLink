@@ -47,5 +47,5 @@ This is a Social Media Web Application built using Spring Boot that allows users
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/social-media-webapp.git
-cd social-media-webapp
+git clone https://github.com/chamudith00/carlink.git
+cd carlink
