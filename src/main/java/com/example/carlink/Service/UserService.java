@@ -92,13 +92,13 @@ public class UserService {
         follower.setUsername(reqUser.getUsername());
         //maybe you have to followUser replace with follower
         UserDto following = new UserDto();
-        following.setEmail(following.getEmail());
-        following.setName(following.getName());
-        following.setProfileImageUri(following.getProfileImageUri());
-        following.setUserId(following.getUserId());
-        following.setUsername(following.getUsername());
+        following.setEmail(followUser.getEmail());
+        following.setName(followUser.getName());
+        following.setProfileImageUri(followUser.getProfileImageUri());
+        following.setUserId(followUser.getUserId());
+        following.setUsername(followUser.getUsername());
 
-        reqUser.getFollowing().add(following);
+        reqUser.getFollowing().add(following);//change follower to following
         followUser.getFollower().add(follower);
 
         profileRepository.save(reqUser);
@@ -120,15 +120,17 @@ public class UserService {
         follower.setUserId(reqUser.getUserId());
         follower.setUsername(reqUser.getUsername());
         //maybe you have to followUser replace with follower
-        UserDto following = new UserDto();
-        following.setEmail(following.getEmail());
-        following.setName(following.getName());
-        following.setProfileImageUri(following.getProfileImageUri());
-        following.setUserId(following.getUserId());
-        following.setUsername(following.getUsername());
 
-        reqUser.getFollowing().remove(following);
-        followUser.getFollower().remove(follower);
+        /* change following to followUser not follower*/
+        UserDto following = new UserDto();
+        following.setEmail(followUser.getEmail());
+        following.setName(followUser.getName());
+        following.setProfileImageUri(followUser.getProfileImageUri());
+        following.setUserId(followUser.getUserId());
+        following.setUsername(followUser.getUsername());
+
+        reqUser.getFollowing().remove(follower);  //change following to follower
+        followUser.getFollower().remove(following); //change follower to following
 
         profileRepository.save(reqUser);
         profileRepository.save(followUser);

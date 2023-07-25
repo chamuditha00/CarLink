@@ -33,19 +33,29 @@ public class ProfileController {
 
 
     @PutMapping("/follow/{id}")
-    public ResponseEntity<MessageResponse> followUserHandler(@PathVariable("id") long id) throws UserException {
-       return null;
+    public ResponseEntity<MessageResponse> followUserHandler(@PathVariable("id") long id, @RequestHeader("Authorization") String token) throws UserException {
+
+        Profile user = userService.findUserProfile(token);
+        String message = userService.followerUser(user.getUserId(), id);
+
+        MessageResponse res = new MessageResponse(message);
+       return new ResponseEntity<MessageResponse>(res,HttpStatus.OK);
     }
 
     @PutMapping("/unfollow/{id}")
-    public ResponseEntity<MessageResponse> unfollowUserHandler(@PathVariable("id") long id) throws UserException {
-        return null;
+    public ResponseEntity<MessageResponse> unfollowUserHandler(@PathVariable("id") long id, @RequestHeader("Authorization") String token) throws UserException {
+        Profile user = userService.findUserProfile(token);
+        String message = userService.unfollowUser(user.getUserId(), id);
+
+        MessageResponse res = new MessageResponse(message);
+        return new ResponseEntity<MessageResponse>(res,HttpStatus.OK);
     }
 
-    @PutMapping("/request")
-    public ResponseEntity<MessageResponse> findUserProfileHandler(@RequestHeader("Authorization") String token) throws UserException {
-        // MessageResponse Response = userService.followUser(followUserId, followUserId);
-        return null;
+    @GetMapping("/request")  //change putm. to getm.
+    public ResponseEntity<Profile> findUserProfileHandler(@RequestHeader("Authorization") String token) throws UserException {
+        Profile user = userService.findUserProfile(token);
+
+        return new ResponseEntity<Profile>(user, HttpStatus.OK);
     }
 
     @GetMapping("/m/{ids}")
@@ -61,9 +71,11 @@ public class ProfileController {
         return new ResponseEntity<List<Profile>>(profiles, HttpStatus.OK);
     }
 
+    @PutMapping("/account/edit")
     public ResponseEntity<Profile> updateUserHandler(@RequestHeader("Authorization") String token, @RequestBody Profile profile) throws UserException {
-        //Profile updatedProfile = userService.updateUserProfile(token, profile);
-        return null;
+        Profile reqUser = userService.findUserProfile(token);
+        Profile updatedUser = userService.updateUser(profile,reqUser);
+        return new ResponseEntity<Profile>(updatedUser, HttpStatus.OK);
     }
 
 
