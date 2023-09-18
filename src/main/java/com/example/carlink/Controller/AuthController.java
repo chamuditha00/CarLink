@@ -3,7 +3,7 @@ package com.example.carlink.Controller;
 import com.example.carlink.Entity.Profile;
 import com.example.carlink.Exceptions.UserException;
 import com.example.carlink.Repository.ProfileRepository;
-import com.example.carlink.Service.UserService;
+import com.example.carlink.Service.UserServiceimplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class AuthController {
 
 
     @Autowired
-    private UserService userService;
+    private UserServiceimplementation userService;
 
     @PostMapping("/signup")
     public ResponseEntity<Profile> registerUserHandler(@RequestBody Profile user) throws UserException {

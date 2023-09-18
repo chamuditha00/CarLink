@@ -20,7 +20,7 @@ public class StoryServiceImplementation implements StoryService {
     private StoryRepository storyRepository;
 
     @Autowired
-    private UserService userService;
+    private UserServiceimplementation userService;
 
     @Autowired
     private ProfileRepository profileRepository;

@@ -6,7 +6,7 @@ import com.example.carlink.Exceptions.PostException;
 import com.example.carlink.Exceptions.UserException;
 import com.example.carlink.Response.MessageResponse;
 import com.example.carlink.Service.PostService;
-import com.example.carlink.Service.UserService;
+import com.example.carlink.Service.UserServiceimplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class PostController {
     private PostService postService;
 
     @Autowired
-    private UserService userService;
+    private UserServiceimplementation userService;
 
     @PostMapping("/create")
     public ResponseEntity<Post> createPostHandler(@RequestBody Post post,@RequestHeader("Authorization") String token) throws UserException {

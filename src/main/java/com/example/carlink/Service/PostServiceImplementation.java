@@ -7,7 +7,6 @@ import com.example.carlink.Exceptions.PostException;
 import com.example.carlink.Exceptions.UserException;
 import com.example.carlink.Repository.PostRepository;
 import com.example.carlink.Repository.ProfileRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ public class PostServiceImplementation implements PostService{
     private PostRepository postRepository;
 
     @Autowired
-    private UserService userService;
+    private UserServiceimplementation userService;
 
     @Autowired
     private ProfileRepository profileRepository;

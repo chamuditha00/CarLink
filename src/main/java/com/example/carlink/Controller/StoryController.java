@@ -5,7 +5,7 @@ import com.example.carlink.Entity.Story;
 import com.example.carlink.Exceptions.StoryException;
 import com.example.carlink.Exceptions.UserException;
 import com.example.carlink.Service.StoryService;
-import com.example.carlink.Service.UserService;
+import com.example.carlink.Service.UserServiceimplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class StoryController {
 
 
     @Autowired
-    private UserService userService;
+    private UserServiceimplementation userService;
 
     @Autowired
     private StoryService storyService;

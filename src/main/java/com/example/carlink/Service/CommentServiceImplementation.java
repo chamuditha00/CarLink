@@ -1,14 +1,14 @@
-package com.example.carlink.Exceptions;
+package com.example.carlink.Service;
 
 import com.example.carlink.Dto.UserDto;
 import com.example.carlink.Entity.Comments;
 import com.example.carlink.Entity.Post;
 import com.example.carlink.Entity.Profile;
+import com.example.carlink.Exceptions.CommentException;
+import com.example.carlink.Exceptions.PostException;
+import com.example.carlink.Exceptions.UserException;
 import com.example.carlink.Repository.CommentRepository;
 import com.example.carlink.Repository.PostRepository;
-import com.example.carlink.Service.CommentService;
-import com.example.carlink.Service.PostService;
-import com.example.carlink.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class CommentServiceImplementation implements CommentService {
     private CommentRepository commentRepository;
 
     @Autowired
-    private UserService userService;
+    private UserServiceimplementation userService;
 
     @Autowired
     private PostService postService;

@@ -6,7 +6,7 @@ import com.example.carlink.Exceptions.CommentException;
 import com.example.carlink.Exceptions.PostException;
 import com.example.carlink.Exceptions.UserException;
 import com.example.carlink.Service.CommentService;
-import com.example.carlink.Service.UserService;
+import com.example.carlink.Service.UserServiceimplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class CommentController {
     private CommentService commentService;
 
     @Autowired
-    private UserService userService;
+    private UserServiceimplementation userService;
 
     @PostMapping("/create/{postId}")
     public ResponseEntity<Comments> createCommentHandler(@RequestBody Comments comments,@PathVariable Long postId ,@RequestHeader("Authorization") String token) throws UserException, PostException {
@@ -33,6 +33,7 @@ public class CommentController {
     @PutMapping("/like/{commentId}")
     public ResponseEntity<Comments>likeCommentHandler(@RequestHeader("Authorization") String token, @PathVariable Long commentId) throws UserException, CommentException {
         Profile user = userService.findUserProfile(token);
+        System.out.println(user.getUserId());
 
         Comments comment = commentService.likeComment(commentId,user.getUserId());
 
